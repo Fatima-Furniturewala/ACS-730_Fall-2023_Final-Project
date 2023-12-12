@@ -1,13 +1,8 @@
-# ACS-730_Fall-2023_Final-Project-ACS-730_Fall-2023_Final-Project
-# Group members:
-# Fatima Abubakar Furniturewala
-# Latheef Saafia Fathima
-# Mu-Ting Chung
-# Xiao Ming Tang
-# Xinyue Li
+# ACS-730_Fall-2023_Final-Project
 
+#Final Project: Two-Tier web application automation with Terraform, Ansible and GitHub Actions
 
-## Mapping of Team Members to GitHub Users
+#Team Members and their GitHub Username
 
 | Group Members Name              | GitHub Username       |
 |--------------------------------|-----------------------|
