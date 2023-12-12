@@ -1,8 +1,7 @@
-# Module to deploy basic networking for terraform1
+# Module to deploy basic networking 
 module "webserver" {
-  source              = "../modules/webserver"
-  env                 = var.env
-  instance_type       = var.instance_type
-  prefix              = var.prefix
-  default_tags        = var.default_tags
+  source = "../modules/webserver"
+  prefix        = var.prefix
+  instance_type = var.instance_type
+  default_tags  = var.default_tags
 }

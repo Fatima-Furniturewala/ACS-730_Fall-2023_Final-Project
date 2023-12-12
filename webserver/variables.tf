@@ -1,33 +1,29 @@
-# Instance type
 variable "instance_type" {
-  default = {
-    "prod"    = "t2.micro"
-  }
-  description = "Type of the instance"
-  type        = map(string)
+  default     = "t3.micro"
+  description = "type of the ec2 instance"
+  type        = string
 }
 
-# Default tags
+# Step 8 - Add variables
 variable "default_tags" {
   default = {
-    "Owner" = "Group5"
-    "Type"   = "EC2"
+    "Owner" = "Group5",
+    "App"   = "Final Project",
+    "Course" = "ACS730"
+    "Env"   = "Prod"
   }
   type        = map(any)
   description = "Default tags to be appliad to all AWS resources"
 }
 
-# Prefix to identify resources
+# Step 8 - Add variables
 variable "prefix" {
+  default     = "group5"
   type        = string
-  default     = "FinalAssignment"
   description = "Name prefix"
 }
-
-
-# Variable to signal the current environment 
-variable "env" {
-  default     = "dev"
+variable "path_to_Group5-prod" {
+  default     = "/home/ec2-user/.ssh/group5.pub"
+  description = "Path to the public key to use in Linux VMs provisioning"
   type        = string
-  description = "Group5"
 }
