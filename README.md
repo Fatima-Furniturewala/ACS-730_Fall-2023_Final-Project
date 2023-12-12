@@ -1,7 +1,7 @@
 # ACS-730_Fall-2023_Final-Project
 
 
-- **Group name:** Group9 5
+- **Group name:** Group 5
 - **Course:** ACS730
 - **Date:** 2023.12.12
 - **Section:** CAA-Fall'23
