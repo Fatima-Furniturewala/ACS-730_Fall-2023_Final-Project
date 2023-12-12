@@ -1,5 +1,6 @@
 # ACS-730_Fall-2023_Final-Project
 
+
 Group name: Group9 5
 Course: ACS730
 Date: 2023.12.12
@@ -8,7 +9,15 @@ Professor: Dhana Karuppusamy
 
 Final Project: Two-Tier web application automation with Terraform, Ansible and GitHub Actions
 
-Team Members and their GitHub Username
+## Group Members:
+
+- Fatima Abubakar Furniturewala
+- Latheef Saafia Fathima
+- Mu-Ting Chung
+- Xiao Ming Tang
+- Xinyue Li
+
+Mapping of Team Members with their GitHub Username
 
 | Group Members Name              | GitHub Username       |
 |--------------------------------|-----------------------|
