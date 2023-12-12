@@ -1,7 +1,7 @@
 name: build
 on:
   push:
-    branches: ["dev", "prod"]
+    branches: ["dev", "main"]
 jobs:
   build:
     name: Build
@@ -11,16 +11,18 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run IaC Scan
-        uses: aquasecurity/action@master
+        uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'config'
+          # security-checks: 'vuln,secret,config'
           ignore-unfixed: false
           format: 'sarif'
-          output: 'results.sarif'
+          output: 'trivy-results.sarif'
           severity: 'CRITICAL,HIGH,MEDIUM,LOW'
 
-      - name: Upload scan results to GitHub Security tab
+
+      - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: 'results.sarif'
+          sarif_file: 'trivy-results.sarif'
           category: 'code'
