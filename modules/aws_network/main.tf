@@ -1,95 +1,80 @@
-# Terraform Config file (main.tf). This has provider block (AWS) and config for provisioning NW resources  
-
-terraform {
-required_providers {
-  aws = {
-  source = "hashicorp/aws"
-  version = ">= 3.27"
- }
-}
-
-  required_version = ">=0.14"
-} 
+# Set the AWS region
 provider "aws" {
-  profile = "default"
   region = "us-east-1"
 }
 
-# Data source for availability zones in us-east-1
+# Get availability_zones
 data "aws_availability_zones" "available" {
   state = "available"
 }
 
-# Define tags locally
-locals {
-  default_tags = merge(var.default_tags, { "env" = var.env })
-}
-
-# Create a new VPC 
-resource "aws_vpc" "main" {
-  cidr_block       = var.vpc_cidr
-  instance_tenancy = "default"
-  enable_dns_hostnames = true
+# Create the Prod VPC
+resource "aws_vpc" "vpc" {
+  cidr_block = var.vpc_cidr
   tags = merge(
-    local.default_tags, {
-      Name = "${var.env}-vpc"
+    var.default_tags, {
+      Name = "${var.prefix}-vpc"
     }
   )
 }
 
+# Create public subnets
 
-# Add provisioning of the public subnetin the default VPC
-resource "aws_subnet" "public_subnet" {
-  count             = length(var.public_cidr_blocks)
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = var.public_cidr_blocks[count.index]
+resource "aws_subnet" "subnets_public" {
+  count             = length(var.public_cidr_subnets)
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = var.public_cidr_subnets[count.index]
   availability_zone = data.aws_availability_zones.available.names[count.index]
   tags = merge(
-    local.default_tags, {
-      Name = "${var.env}-public-subnet-${count.index}"
+    var.default_tags, {
+      Name = "${var.prefix}-public-subnet-${count.index + 1}"
     }
   )
 }
 
-# Add provisioning of the private subnetin the default VPC
-resource "aws_subnet" "private_subnet" {
-  count             = length(var.private_cidr_blocks)
-  vpc_id            = aws_vpc.main.id
-  cidr_block        = var.private_cidr_blocks[count.index]
+# Create private subnets
+resource "aws_subnet" "subnets_private" {
+  count             = length(var.private_cidr_subnets)
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = var.private_cidr_subnets[count.index]
   availability_zone = data.aws_availability_zones.available.names[count.index]
   tags = merge(
-    local.default_tags, {
-      Name = "${var.env}-private-subnet-${count.index}"
+    var.default_tags, {
+      Name = "${var.prefix}-private-subnet-${count.index + 1}"
     }
   )
 }
 
-# Create Internet Gateway
+
+# Create a route table for the Internet access
+resource "aws_route_table" "route_internet" {
+  vpc_id = aws_vpc.vpc.id
+  
+  tags = merge(
+    var.default_tags, {
+      Name = "${var.prefix}-rt-webservers"
+    }
+  )  
+}
+
+
+# Create an Internet Gateway
 resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.main.id
-
-  tags = merge(local.default_tags,
-    {
-      "Name" = "${var.env}-igw"
+  vpc_id = aws_vpc.vpc.id
+  tags = merge(
+    var.default_tags, {
+      Name = "${var.prefix}-igw"
     }
   )
 }
-
-# Route table to route add default gateway pointing to Internet Gateway (IGW)
-resource "aws_route_table" "public_subnets" {
-  vpc_id = aws_vpc.main.id
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.igw.id
-  }
-  tags = {
-    Name = "${var.env}-route-public-subnets"
-  }
-}
-# Associate subnets with the custom route table
-resource "aws_route_table_association" "public_route_table_association" {
-  count = length(aws_subnet.public_subnet[*].id)
-  route_table_id = aws_route_table.public_subnets.id
-  subnet_id      = aws_subnet.public_subnet[count.index].id
+resource "aws_route" "route_access" {
+  route_table_id         = aws_route_table.route_internet.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.igw.id
 }
 
+resource "aws_route_table_association" "route_association_internet_access" {
+  count          = length(var.public_cidr_subnets)
+  route_table_id = aws_route_table.route_internet.id
+  subnet_id      = aws_subnet.subnets_public[count.index].id
+}

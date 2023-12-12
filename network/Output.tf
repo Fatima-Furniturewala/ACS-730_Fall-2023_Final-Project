@@ -1,23 +1,19 @@
-output "public_subnet_ids" {
-  value = module.vpc-dev.public_subnet_id
-}
-
-output "private_subnet_ids" {
-  value = module.vpc-dev.private_subnet_id
-}
-
 output "vpc_id" {
-  value = module.vpc-dev.vpc_id
+  value = module.vpc-prod.vpc_id
 }
 
-output "public_subnet_cidrs" {
-  value = var.public_subnet_cidrs
+output "igw_id" {
+    value = module.vpc-prod.igw_id
 }
 
-output "private_subnet_cidrs" {
-  value = var.private_subnet_cidrs
+output "rt_id" {
+    value = module.vpc-prod.rt_id
 }
 
-output "public_route_table" {
-  value = module.vpc-dev.public_route_table 
+output "subnets_public_ids" {
+    value = module.vpc-prod.subnets_public_ids
+}
+
+output "subnets_private_ids" {
+    value = module.vpc-prod.subnets_private_ids
 }

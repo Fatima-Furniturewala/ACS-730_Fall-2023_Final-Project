@@ -1,10 +1,12 @@
 # Module to deploy basic networking 
-module "vpc-dev" {
-  source              = "../modules/aws_network"
-  env                 = var.env
-  vpc_cidr            = var.vpc_cidr
-  public_cidr_blocks  = var.public_subnet_cidrs
-  private_cidr_blocks = var.private_subnet_cidrs
-  prefix              = var.prefix
-  default_tags        = var.default_tags
+module "vpc-prod" {
+  source = "../modules/aws_network"
+  #source             = "github.com/Dhansca/acsnwmodule.git"
+  #env                = var.env
+  prefix             = var.prefix
+  vpc_cidr           = var.vpc_cidr
+  public_cidr_subnets = var.public_cidr_subnets
+  private_cidr_subnets = var.private_cidr_subnets
+
+#  default_tags       = var.default_tags
 }
