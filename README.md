@@ -1,8 +1,8 @@
 # ACS-730_Fall-2023_Final-Project
 
-#Final Project: Two-Tier web application automation with Terraform, Ansible and GitHub Actions
+Final Project: Two-Tier web application automation with Terraform, Ansible and GitHub Actions
 
-#Team Members and their GitHub Username
+Team Members and their GitHub Username
 
 | Group Members Name              | GitHub Username       |
 |--------------------------------|-----------------------|
