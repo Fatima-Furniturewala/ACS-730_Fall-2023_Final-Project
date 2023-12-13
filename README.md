@@ -53,9 +53,17 @@ Create two S3 buckets 'acs730-xmtw11-1119' and 'mchung46-test-web'.The first buc
    tf plan
    tf apply --auto-approve
 ```
-
-
-6. Clean Up process
+6. Ansible Dynamic Inventory
+   need to make sure the python version is not conlfict in ur environment
+```
+cd ansible
+ansible-playbook -i hosts.txt playbook1.yaml
+sudo nano /etc/ansible/ansible.cfg
+ansible-playbook -i aws_ec2.yaml playbook1.yaml
+```
+7. Static Website
+   
+8. Clean Up process
 
 The clean up process is a reverse of the deployment process,
 
