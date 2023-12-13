@@ -48,7 +48,7 @@ Create two S3 buckets 'acs730-xmtw11-1119' and 'mchung46-test-web'.The first buc
 5. Create Webservers
 
 ```
-   cd ~/environment/project/dev/webservers 
+   cd ~/environment/project/dev/webserver
    tf init
    tf plan
    tf apply --auto-approve
@@ -62,7 +62,7 @@ The clean up process is a reverse of the deployment process,
 1. Delete webservers instances 
 
 ```
-   cd ~/environment/project/dev/webservers 
+   cd ~/environment/project/dev/webserver
    tf destroy --auto-approve
 ```
 
