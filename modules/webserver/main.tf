@@ -15,7 +15,7 @@ data "aws_ami" "amazon_linux" {
 data "terraform_remote_state" "remote_data" { // This is to use Outputs from Remote State
   backend = "s3"
   config = {
-    bucket = "mchung46final"               // Bucket from where to GET Terraform State
+    bucket = "group5"               // Bucket from where to GET Terraform State
     key    = "network/terraform.tfstate" // Object name in the bucket to GET Terraform State
     region = "us-east-1"                          // Region where bucket created
   }
