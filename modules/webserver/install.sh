@@ -1,3 +1,8 @@
+#!/bin/bash
+sudo yum -y update
+sudo yum -y install httpd
+
+
 myip=`curl http://169.254.169.254/latest/meta-data/local-ipv4`
 echo "<!DOCTYPE html>
 <html>
@@ -42,3 +47,12 @@ echo "<!DOCTYPE html>
 </script>
 </body>
 </html>"  >  /var/www/html/index.html
+
+
+# Start and enable Apache
+sudo systemctl start httpd
+sudo systemctl enable httpd
+
+
+sudo systemctl start httpd
+sudo systemctl enable httpd

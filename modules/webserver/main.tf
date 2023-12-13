@@ -15,7 +15,7 @@ data "aws_ami" "amazon_linux" {
 data "terraform_remote_state" "remote_data" { // This is to use Outputs from Remote State
   backend = "s3"
   config = {
-    bucket = "group5lsfathima"               // Bucket from where to GET Terraform State
+    bucket = "mchung46final"               // Bucket from where to GET Terraform State
     key    = "network/terraform.tfstate" // Object name in the bucket to GET Terraform State
     region = "us-east-1"                          // Region where bucket created
   }
@@ -35,7 +35,7 @@ resource "aws_instance" "webserver_instances" {
   subnet_id                   = data.terraform_remote_state.remote_data.outputs.subnets_public_ids[count.index]
   security_groups             = [aws_security_group.sg.id]
   associate_public_ip_address = true
-  user_data                   = count.index < 2 ? file("${path.module}/install_httpd.sh") : null
+  user_data                   = count.index < 2 ? file("${path.module}/install.sh") : null
   tags = merge(var.default_tags,
     {
       "Name" = "${var.prefix}-WebServers-${count.index + 1}"
@@ -62,5 +62,5 @@ resource "aws_instance" "private_vms" {
 # Adding SSH key to Amazon EC2
 resource "aws_key_pair" "web_key" {
   key_name   = "${var.prefix}-key"
-  public_key = file("~/.ssh/${var.prefix}.pub")
+  public_key = file("${var.prefix}.pub")
 }

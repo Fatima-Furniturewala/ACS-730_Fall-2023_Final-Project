@@ -22,7 +22,7 @@ variable "prefix" {
 }
 
 variable "path_to_Group5-prod" {
-  default     = "/home/ec2-user/.ssh/group5.pub"
+  default     = "group5.pub"
   description = "Path to the public key to use in Linux VMs provisioning"
   type        = string
 }
