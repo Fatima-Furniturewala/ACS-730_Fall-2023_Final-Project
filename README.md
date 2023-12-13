@@ -19,7 +19,7 @@ Final Project: Two-Tier web application automation with Terraform, Ansible and G
 
 Mapping of Team Members with their GitHub Username
 
-| Group Members Name              | GitHub Username       |
+| Group Members Name             | GitHub Username       |
 |--------------------------------|-----------------------|
 | Fatima Abubakar Furniturewala  | Fatima-Furniturewala  |
 | Mu-Ting Chung                  | mchung46              |
@@ -29,7 +29,7 @@ Mapping of Team Members with their GitHub Username
 
 ###Deployment pre-requisites:
 
-Create two S3 buckets 'acs730-xmtw11-1119' and 'mchung46-test-web'.The first buckets will store Terraform state, it holds two root folders: dev and prod, in which there are network and webservers respectively. The second one is for the website.
+Create two S3 buckets 'acs730-group5' and 'mchung46-test-web'.The first buckets will store Terraform state, it holds two root folders: dev and prod, in which there are network and webservers respectively. The second one is for the website.
 
 ##Deployment Process - Terraform part
 
@@ -53,14 +53,17 @@ Create two S3 buckets 'acs730-xmtw11-1119' and 'mchung46-test-web'.The first buc
    tf plan
    tf apply --auto-approve
 ```
+
 6. Ansible Dynamic Inventory
    need to make sure the python version is not conlfict in ur environment
+   
 ```
 cd ansible
 ansible-playbook -i hosts.txt playbook1.yaml
 sudo nano /etc/ansible/ansible.cfg
 ansible-playbook -i aws_ec2.yaml playbook1.yaml
 ```
+
 7. Static Website
    
 8. Clean Up process
