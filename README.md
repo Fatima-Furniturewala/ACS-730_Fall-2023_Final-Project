@@ -55,7 +55,7 @@ Create two S3 buckets 'acs730-xmtw11-1119' and 'mchung46-test-web'.The first buc
 ```
 
 
-6. #Clean Up process
+6. Clean Up process
 
 The clean up process is a reverse of the deployment process,
 
