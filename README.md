@@ -28,13 +28,16 @@ Mapping of Team Members with their GitHub Username
 | Latheef Saafia Fathima         | Latheef-Saafia13      |
 
 ###Deployment pre-requisites:
+
 Create two S3 buckets 'acs730-xmtw11-1119' and 'mchung46-test-web'.The first buckets will store Terraform state, it holds two root folders: dev and prod, in which there are network and webservers respectively. The second one is for the website.
 
 ##Deployment Process - Terraform part
+
 1.  Start with the github code.
 2.  Update the config.tf in dev and prod subfolders to reflect the bucket names.
 3.  Update the desired input varibles in dev/network and deploy dev/network with the commands below
 4.  Create Networks
+
  ```
     cd ~/environment/project/dev/network 
     tf init
@@ -42,8 +45,8 @@ Create two S3 buckets 'acs730-xmtw11-1119' and 'mchung46-test-web'.The first buc
     tf apply --auto-approve    
  ```
 
- ```
 5. Create Webservers
+
 ```
    cd ~/environment/project/dev/webservers 
    tf init
@@ -51,21 +54,20 @@ Create two S3 buckets 'acs730-xmtw11-1119' and 'mchung46-test-web'.The first buc
    tf apply --auto-approve
 ```
 
-```
 
-10.  
-###Clean Up process
+6. #Clean Up process
 
-The cleaniup process is a reverse of the deployment process,
+The clean up process is a reverse of the deployment process,
 
+1. Delete webservers instances 
 
-2. Delete  webservers instances 
 ```
    cd ~/environment/project/dev/webservers 
    tf destroy --auto-approve
 ```
-```
-4. Delete  network and its subnets 
+
+2. Delete  network and its subnets 
+
 ```
    cd ~/environment/project/dev/network 
    tf destroy --auto-approve
